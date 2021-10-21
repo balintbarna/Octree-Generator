@@ -8,13 +8,18 @@ class Point(object):
 
 
     @classmethod
-    def create(cls, x, y, z):
-        return cls(x=x, y=y, z=z)
+    def create(cls, x, y, z, data):
+        return cls(_x=x, _y=y, _z=z, _data=data)
     
 
     @staticmethod
     def fromList(list):
-        return Point.create(list[0], list[1], list[2])
+        if len(list) == 3:
+            return Point.create(list[0], list[1], list[2], None)
+        elif len(list) == 4:
+            return Point.create(list[0], list[1], list[2], list[3])
+        else:
+            raise "wrong format list for point"
 
 
     def __getattribute__(self, item):
@@ -37,18 +42,34 @@ class Point(object):
     
 
     def __str__(self) -> str:
-        return "x: {}\ny: {}\nz: {}".format(self.x, self.y, self.z)
+        return "x: {}\ny: {}\nz: {}\ndata: {}".format(self.x, self.y, self.z, self.data)
 
 
     def __repr__(self) -> str:
         return str(self)
     
     @property
-    def values(self):
-        return [self.x, self.y, self.z]
+    def x(self):
+        return self._x
+    
+    @property
+    def y(self):
+        return self._y
+    
+    @property
+    def z(self):
+        return self._z
+    
+    @property
+    def coords(self):
+        return (self.x, self.y, self.z)
+    
+    @property
+    def data(self):
+        return self._data
 
 
 
 if __name__ == "__main__":
-    p =Point.create(1, 2, 3)
-    print("x: {}\ny: {}\nz: {}".format(p.x, p.y, p.z))
+    p =Point.create(1, 2, 3, "data")
+    print(str(p))
