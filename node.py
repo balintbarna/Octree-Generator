@@ -13,13 +13,14 @@ class Node:
         self._edge_length: float = edge_length
         self._config: NodeConfig = config
         self._children = None
+        self._data = None
 
 
     def filter_points(self, points):
         if type(points) is not list:
             raise "points not list"
-        min = Point.fromList([a - self._edge_length / 2 for a in self._center.values])
-        max = Point.fromList([a + self._edge_length / 2 for a in self._center.values])
+        min = Point.fromList([a - self._edge_length / 2 for a in self._center.coords])
+        max = Point.fromList([a + self._edge_length / 2 for a in self._center.coords])
         remainder = []
         for point in points:
             if point.x >= min.x and point.x <= max.x and point.y >= min.y and point.y <= max.y and point.z >= min.z and point.z <= max.z:
@@ -34,7 +35,7 @@ class Node:
             self._children = []
             for modulator in range(8):
                 directions = np.array([((modulator >> axis) % 2) * 2 - 1 for axis in range(3)])
-                center = Point.fromList(self._center.values + directions*(self._edge_length/4))
+                center = Point.fromList(self._center.coords + directions*(self._edge_length/4))
                 self._children.append(Node(center, self._edge_length / 2, self._config))
         if self._children:
             for child in self._children:
@@ -71,3 +72,8 @@ class Node:
     @property
     def length(self):
         return self._edge_length
+
+    
+    @property
+    def data(self):
+        return self._data
