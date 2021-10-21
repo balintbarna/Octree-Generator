@@ -5,7 +5,6 @@ from math import floor
 from point import Point
 from node import Node
 
-values = None
 with open("allPointsList.json") as f1:
     pcdata = json.load(f1)
     if type(pcdata) is not list:
@@ -35,7 +34,7 @@ centered = pcarr - list(center.coords)
 edge_length = 2*np.amax(np.abs(centered))
 print("edge length: {}".format(edge_length))
 root_node = Node(center, edge_length)
-outliers = root_node.filter_points([Point.fromList(a) for a in pcarr])
+outliers = root_node.filter_points([Point.create(value[0], value[1], value[2], typearr[index]) for index, value in enumerate(pcarr)])
 if len(outliers) > 0:
     raise "there are outliers"
 root_node.propagate()
@@ -51,6 +50,8 @@ def data_to_color(data):
         return "blue"
     elif data == "IfcSlab":
         return "red"
+    elif data == "IfcDoor":
+        return "white"
     else:
         print("no color set for {}".format(data))
         return "gray"
