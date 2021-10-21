@@ -42,7 +42,7 @@ class Point(object):
     
 
     def __str__(self) -> str:
-        return "x: {}\ny: {}\nz: {}\ndata: {}".format(self.x, self.y, self.z, self.data)
+        return "x: {}\ny: {}\nz: {}\ndata: {}\n".format(self.x, self.y, self.z, self.data)
 
 
     def __repr__(self) -> str:

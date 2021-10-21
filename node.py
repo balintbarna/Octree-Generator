@@ -57,7 +57,7 @@ class Node:
     
 
     def __str__(self) -> str:
-        return "center: {}\nlength: {}\npoints: {}\nchildren: {}".format(self._center, self._edge_length, self._points, self._children)
+        return "center: {}\nlength: {}\npoints: {}\nchildren: {}\n".format(self._center, self._edge_length, self._points, self._children)
 
 
     def __repr__(self) -> str:
@@ -76,4 +76,4 @@ class Node:
     
     @property
     def data(self):
-        return self._data
+        return self._points[0].data
